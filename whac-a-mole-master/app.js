@@ -25,13 +25,6 @@ function randomSquare() {
 
   hitPosition = randomSquare.id
   losePsition = randomLoseSquare.id
-  /*while(randomLoseSquare === randomLoseSquare){
-    squares.forEach(square => {
-      square.classList.remove('cat')
-    })
-    randomLoseSquare = squares[Math.floor(Math.random() * 9)];
-    randomLoseSquare.classList.add('cat');
-  }*/
 }
 
 squares.forEach(square => {
@@ -42,17 +35,13 @@ squares.forEach(square => {
       hitPosition = null
     }
   if (square.id == losePsition) {
-      clearInterval(countDownTimerId)
-      clearInterval(timerId)
-      alert('GAME OVER! Your final score is ' + result)
-      lost = true;
-      squares.forEach(square => {
-        square.classList.remove('mole')
-        square.classList.remove('cat')
-      })
+      result--
+      score.textContent = result
+      losePsition = null
     }
   })
 })
+
 
 function moveMole() {
   timerId = setInterval(randomSquare, 500)
@@ -61,6 +50,9 @@ function moveMole() {
 function moveCat() {
   timerId = setInterval(randomSquare, 500)
 }
+
+moveCat()
+moveMole()
 
 function countDown() {
   currentTime--
@@ -76,8 +68,3 @@ function countDown() {
  
  
 let countDownTimerId = setInterval(countDown, 1000)
-
-while(lost == false){
-  moveCat()
-  moveMole()
-}
