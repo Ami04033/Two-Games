@@ -2,52 +2,52 @@ document.addEventListener('DOMContentLoaded', () => {
   //card options
   const cardArray = [
     {
-      name: 'fries',
-      img: 'images/fries.png'
+      name: 'hawk',
+      img: 'images/hawk.jpg'
     },
     {
-      name: 'cheeseburger',
-      img: 'images/cheeseburger.png'
+      name: 'owl',
+      img: 'images/owl.jpg'
     },
     {
-      name: 'ice-cream',
-      img: 'images/ice-cream.png'
+      name: 'hummingbird',
+      img: 'images/hummingbird.jpg'
     },
     {
-      name: 'pizza',
-      img: 'images/pizza.png'
+      name: 'budgie',
+      img: 'images/budgie.jpg'
     },
     {
-      name: 'milkshake',
-      img: 'images/milkshake.png'
+      name: 'spix_macaw',
+      img: 'images/spix_macaw.jpg'
     },
     {
-      name: 'hotdog',
-      img: 'images/hotdog.png'
+      name: 'peacock',
+      img: 'images/peacock.jpg'
     },
     {
-      name: 'fries',
-      img: 'images/fries.png'
+      name: 'hawk',
+      img: 'images/hawk.jpg'
     },
     {
-      name: 'cheeseburger',
-      img: 'images/cheeseburger.png'
+      name: 'owl',
+      img: 'images/owl.jpg'
     },
     {
-      name: 'ice-cream',
-      img: 'images/ice-cream.png'
+      name: 'hummingbird',
+      img: 'images/hummingbird.jpg'
     },
     {
-      name: 'pizza',
-      img: 'images/pizza.png'
+      name: 'budgie',
+      img: 'images/budgie.jpg'
     },
     {
-      name: 'milkshake',
-      img: 'images/milkshake.png'
+      name: 'spix_macaw',
+      img: 'images/spix_macaw.jpg'
     },
     {
-      name: 'hotdog',
-      img: 'images/hotdog.png'
+      name: 'peacock',
+      img: 'images/peacock.jpg'
     }
   ]
 
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cardsChosen = []
   let cardsChosenId = []
   let cardsWon = []
+  let lost = false;
 
   //create your board
   function createBoard() {
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
   //check for matches
   function checkForMatch() {
     const cards = document.querySelectorAll('img')
@@ -80,6 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
       cards[optionOneId].setAttribute('src', 'images/blank.png')
       cards[optionTwoId].setAttribute('src', 'images/blank.png')
       alert('You have clicked the same image!')
+    }
+    else if(cardsChosen[0] === cardsChosen[1] && (cardsChosen[0] === 'hawk' || cardsChosen[0] === 'owl')){
+      for (let i = 0; i < cardArray.length; i++) {
+        cards[i].removeEventListener('click', flipCard);
+        cards[i].setAttribute('src', 'images/white.png');
+      }
+      alert('Sorry, you lost!');
+      lost = true;
     }
     else if (cardsChosen[0] === cardsChosen[1]) {
       alert('You found a match')
@@ -96,8 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsChosen = []
     cardsChosenId = []
     resultDisplay.textContent = cardsWon.length
-    if  (cardsWon.length === cardArray.length/2) {
+    if (cardsWon.length === cardArray.length/2) {
       resultDisplay.textContent = 'Congratulations! You found them all!'
+    }
+    if (lost){
+      resultDisplay.textContent = 'You lose!';
     }
   }
 
@@ -105,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function flipCard() {
     let cardId = this.getAttribute('data-id')
     cardsChosen.push(cardArray[cardId].name)
+    console.log(cardArray[cardId].name);
     cardsChosenId.push(cardId)
     this.setAttribute('src', cardArray[cardId].img)
     if (cardsChosen.length ===2) {
