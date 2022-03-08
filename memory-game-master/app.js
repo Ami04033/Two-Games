@@ -106,7 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsChosen = []
     cardsChosenId = []
     resultDisplay.textContent = cardsWon.length
-    if (cardsWon.length === cardArray.length/2) {
+    if (cardsWon.length === cardArray.length/2 - 2) {
+      for (let i = 0; i < cardArray.length; i++) {
+        cards[i].removeEventListener('click', flipCard);
+        cards[i].setAttribute('src', 'images/white.png');
+      }
       resultDisplay.textContent = 'Congratulations! You found them all!'
     }
     if (lost){
